@@ -1,0 +1,11 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "NEP Config",
+    "description": "Schema for Next-generation Edgeless Package config in toml",
+    "$id":"https://github.com/EdgelessPE/nep-spec/0.1.0/schema.json",
+    "x-taplo-info": {
+      "authors": ["Cno (https://github.com/Cnotech)"],
+      "version": "0.1.0",
+      "patterns": ["^package.toml$"]
+    }
+  }
