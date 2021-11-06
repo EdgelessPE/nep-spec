@@ -1,93 +1,247 @@
 {
-    "$schema":"./schema.json",
-    "package": {
-      "authors": [
-        "Cno <@Cnotech>",
-        "Microsoft"
-      ],
-      "compat": [
-        ">=4.0.0"
-      ],
-      "name": "VSCode",
-      "tested": [
-        "4.0.0",
-        "3.2.1"
-      ],
-      "type": "Software",
-      "version": "1.46.0.0"
+  "package": {
+    "authors": [
+      "Cno <@Cnotech>",
+      "Microsoft"
+    ],
+    "compat": [
+      ">=4.0.0"
+    ],
+    "name": "VSCode",
+    "tested": [
+      "4.0.0",
+      "3.2.1"
+    ],
+    "type": "Software",
+    "version": "1.46.0.0"
+  },
+  "setup_flow": {
+    "add_path": {
+      "name": "Add PATH",
+      "operation": "Add",
+      "record": "${SystemDrive}/Users/nodejs",
+      "type": "Path"
     },
-    "setup_flow": {
-      "copy_config": {
-        "name": "Copy config",
-        "operation": "Copy",
-        "overwrite": false,
-        "source": "./VSCode/config/*",
-        "target": "${SystemDrive}/Users/Config/",
-        "type": "File"
+    "check_7z": {
+      "exp": [
+        "Exist(\"${SystemDrive}/Program Files (x86)/7-Zip/7z.exe\")",
+        "Exist(\"${SystemDrive}/Program Files/7-Zip/7z.exe\")",
+        "Exist(\"./7z.exe\")"
+      ],
+      "name": "Check 7z",
+      "type": "LogicOr"
+    },
+    "copy_config": {
+      "name": "Copy config",
+      "operation": "Copy",
+      "overwrite": false,
+      "source": "./VSCode/config/*",
+      "target": "${SystemDrive}/Users/Config/",
+      "type": "File"
+    },
+    "create_shortcut": {
+      "location_default": "Desktop",
+      "name": "Create shortcut",
+      "source_file": "./VSCode/VSCode.exe",
+      "target_args": "${env.USER_ARGS}",
+      "target_icon": "./VSCode/vscode.ico",
+      "target_name": "Visual Studio Code",
+      "type": "Link"
+    },
+    "create_shortcut2": {
+      "location_default": "StartMenu",
+      "name": "Create shortcut",
+      "source_file": "./VSCode/VSCode.exe",
+      "target_args": "${env.USER_ARGS}",
+      "target_icon": "./VSCode/vscode.ico",
+      "target_name": "集成开发/Visual Studio Code",
+      "type": "Link"
+    },
+    "delete_config": {
+      "force": true,
+      "name": "Delete config",
+      "operation": "Delete",
+      "source": "${SystemDrive}/Users/Config/*",
+      "type": "File"
+    },
+    "download_vscode": {
+      "md5": "DD4DD2E97577D88B4E6E4B3BF4AA86A9",
+      "name": "Download VSCode",
+      "overwrite": false,
+      "save": "./vscode.exe",
+      "thread": 16,
+      "type": "Download",
+      "url": "https://az764295.vo.msecnd.net/stable/7f6ab5485bbc008386c4386d08766667e155244e/VSCodeUserSetup-x64-1.60.2.exe",
+      "wait": false
+    },
+    "install_group": {
+      "if": "${uc.GROUP_INSTALL}==true",
+      "name": "Install Group",
+      "type": "Group",
+      "install_1": {
+        "command": "./MySoftware/Installer1.exe /S",
+        "name": "Install 1",
+        "shell": "cmd",
+        "type": "Execute"
       },
-      "delete_config": {
-        "force": true,
-        "name": "Delete config",
-        "operation": "Delete",
-        "source": "${SystemDrive}/Users/Config/*",
-        "type": "File"
+      "install_2": {
+        "command": "./MySoftware/Installer2.exe /S",
+        "name": "Install 2",
+        "shell": "cmd",
+        "type": "Execute"
       },
-      "move_config": {
-        "name": "Move config",
-        "operation": "Move",
-        "overwrite": false,
-        "source": "./_patch/config/*",
-        "target": "${SystemDrive}/Users/Config/",
-        "type": "File"
-      },
-      "new_folder": {
-        "name": "New folder",
-        "operation": "New",
-        "overwrite": true,
-        "target": "${SystemDrive}/Users/Config/",
-        "type": "File"
-      },
-      "rename_config": {
-        "name": "Rename config",
-        "operation": "Rename",
-        "source": "./VSCode/config/*.ini",
-        "target": "*.wcs",
-        "type": "File"
-      },
-      "start_vscode": {
-        "path": "exec explorer ${Desktop}/Visual Studio Code.lnk",
-        "hide": false,
-        "if": "${uc.AUTO_RUN}==true",
-        "name": "Start VSCode",
-        "pwd": "${SystemDrive}/System32",
-        "type": "Script",
-        "use": [
-          "Aria2cPath"
-        ],
-        "wait": false
-      },
-      "install_group": {
-        "if": "${uc.GROUP_INSTALL}==true",
-        "name": "Install Group",
-        "type": "Group",
-        "install_1": {
-          "command": "./MySoftware/Installer1.exe /S",
-          "name": "Install 1",
-          "shell": "cmd",
-          "type": "Execute"
-        },
-        "install_2": {
-          "command": "./MySoftware/Installer2.exe /S",
-          "name": "Install 2",
-          "shell": "cmd",
-          "type": "Execute"
-        },
-        "install_3": {
-          "command": "./MySoftware/Installer3.exe /S",
-          "name": "Install 3",
-          "shell": "cmd",
-          "type": "Execute"
-        }
+      "install_3": {
+        "command": "./MySoftware/Installer3.exe /S",
+        "name": "Install 3",
+        "shell": "cmd",
+        "type": "Execute"
       }
+    },
+    "kill_vscode": {
+      "name": "Kill VSCode",
+      "target": "vscode.exe",
+      "type": "Kill"
+    },
+    "log_7z": {
+      "if": "${ExitCode}==0",
+      "level": "Info",
+      "msg": "Found 7-Zip",
+      "name": "Log 7z",
+      "type": "Log"
+    },
+    "log_status": {
+      "level": "Info",
+      "msg": "VSCode installed successfully",
+      "name": "Log status",
+      "type": "Log"
+    },
+    "log_success": {
+      "if": "${ExitCode}==0",
+      "level": "Info",
+      "msg": "Installed successfully",
+      "name": "Log success",
+      "type": "Log"
+    },
+    "modify_auto_run": {
+      "if": "${BootPolicy}==\"UEFI\"",
+      "key": "uc.AUTO_RUN",
+      "name": "Modify auto run",
+      "type": "Modify",
+      "value": true
+    },
+    "modify_boot_policy": {
+      "if": "${BootPolicy}==\"UEFI\"",
+      "key": "env.MY_BOOT_POLICY",
+      "name": "Modify boot policy",
+      "type": "Modify",
+      "value": 1
+    },
+    "move_config": {
+      "name": "Move config",
+      "operation": "Move",
+      "overwrite": false,
+      "source": "./_patch/config/*",
+      "target": "${SystemDrive}/Users/Config/",
+      "type": "File"
+    },
+    "new_folder": {
+      "name": "New folder",
+      "operation": "New",
+      "overwrite": true,
+      "target": "${SystemDrive}/Users/Config/",
+      "type": "File"
+    },
+    "rename_config": {
+      "name": "Rename config",
+      "operation": "Rename",
+      "source": "./VSCode/config/*.ini",
+      "target": "*.wcs",
+      "type": "File"
+    },
+    "run_setup_script": {
+      "args": "${env.USER_ARGS}",
+      "fix": [
+        "./VSCode/install.cmd",
+        "./_retinue/update.py"
+      ],
+      "hide": false,
+      "name": "Run setup script",
+      "path": "./setup.cmd",
+      "pwd": "${SystemDrive}/System32",
+      "type": "Script",
+      "use": [
+        "uc.AUTO_RUN"
+      ],
+      "wait": false
+    },
+    "send_key": {
+      "focus": "Chrome Setup",
+      "key": "Enter",
+      "name": "Send key",
+      "type": "SendKey"
+    },
+    "send_mouse": {
+      "control": "Next",
+      "focus": "Chrome Setup",
+      "name": "Send mouse",
+      "type": "SendMouse"
+    },
+    "show_status": {
+      "content": "VSCode 已安装完成",
+      "name": "Show status",
+      "title": "安装成功",
+      "type": "Toast"
+    },
+    "show_status2": {
+      "content": "是否打开 VSCode？",
+      "name": "Show status",
+      "options": [
+        "是",
+        "否"
+      ],
+      "title": "安装成功",
+      "type": "Dialog"
+    },
+    "start_vscode": {
+      "command": "exec explorer ${Desktop}/Visual Studio Code.lnk",
+      "hide": false,
+      "if": "${uc.AUTO_RUN}==true",
+      "name": "Start VSCode",
+      "pwd": "${SystemDrive}/System32",
+      "shell": "pecmd",
+      "type": "Execute",
+      "use": [
+        "env.SETUP_PLUGINS"
+      ],
+      "wait": false
+    },
+    "start_vscode2": {
+      "command": "explorer ${Desktop}/Visual Studio Code.lnk",
+      "if": "${Feedback}==1",
+      "name": "Start vscode",
+      "shell": "cmd",
+      "type": "Execute"
+    },
+    "unzip_vscode": {
+      "name": "Unzip VSCode",
+      "overwrite": false,
+      "source": "./vscode.exe",
+      "target": "./VScode",
+      "type": "Unzip"
+    },
+    "verify_success": {
+      "exp": [
+        "Exist(\"${EdgelessDrive}/Edgeless/version.txt\")",
+        "Exist(\"${EdgelessDrive}/Edgeless/Nes_Inport.7z\")",
+        "Exist(\"${EdgelessDrive}/Edgeless/Resource/*.7z\")"
+      ],
+      "name": "Verify success",
+      "type": "LogicAnd"
+    },
+    "wait_1": {
+      "name": "Wait 1",
+      "timeout": 1000,
+      "type": "Wait"
     }
   }
+}

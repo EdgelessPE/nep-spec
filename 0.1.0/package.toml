@@ -7,12 +7,236 @@ type = "Software"
 version = "1.46.0.0"
 # 打包者/作者
 # 通过附加 <@github_id>  提供对应的GitHub ID
-authors = [
-  "Cno <@Cnotech>",
-  "Microsoft"
-]
+authors = ["Cno <@Cnotech>", "Microsoft"]
 # 兼容的 Edgeless 版本（可选）
 compat = [">=4.0.0"]
 # 通过测试的 Edgeless 版本
-tested = ["4.0.0","3.2.1"]
+tested = ["4.0.0", "3.2.1"]
 
+[setup_flow.install_group]
+name = "Install Group"
+type = "Group"
+# 使用一个条件语句控制整组步骤的执行
+if = "${uc.GROUP_INSTALL}==true"
+
+[setup_flow.install_group.install_1]
+name = "Install 1"
+type = "Execute"
+
+command = "./MySoftware/Installer1.exe /S"
+shell = "cmd"
+
+
+[setup_flow.install_group.install_2]
+name = "Install 2"
+type = "Execute"
+
+command = "./MySoftware/Installer2.exe /S"
+shell = "cmd"
+
+
+[setup_flow.install_group.install_3]
+name = "Install 3"
+type = "Execute"
+
+command = "./MySoftware/Installer3.exe /S"
+shell = "cmd"
+[setup_flow.verify_success]
+name = "Verify success"
+type = "LogicAnd"
+
+exp = [
+  'Exist("${EdgelessDrive}/Edgeless/version.txt")',
+  'Exist("${EdgelessDrive}/Edgeless/Nes_Inport.7z")',
+  'Exist("${EdgelessDrive}/Edgeless/Resource/*.7z")',
+]
+
+[setup_flow.log_success]
+name = "Log success"
+type = "Log"
+if = '${ExitCode}==0'
+
+level = "Info"
+msg = "Installed successfully"
+[setup_flow.check_7z]
+name = "Check 7z"
+type = "LogicOr"
+
+exp = [
+  'Exist("${SystemDrive}/Program Files (x86)/7-Zip/7z.exe")',
+  'Exist("${SystemDrive}/Program Files/7-Zip/7z.exe")',
+  'Exist("./7z.exe")',
+]
+
+[setup_flow.log_7z]
+name = "Log 7z"
+type = "Log"
+if = '${ExitCode}==0'
+
+level = "Info"
+msg = "Found 7-Zip"
+[setup_flow.modify_boot_policy]
+name = "Modify boot policy"
+type = "Modify"
+if = '${BootPolicy}=="UEFI"'
+
+key = "env.MY_BOOT_POLICY"
+value = 1
+[setup_flow.modify_auto_run]
+name = "Modify auto run"
+type = "Modify"
+if = '${BootPolicy}=="UEFI"'
+
+key = "uc.AUTO_RUN"
+value = true
+[setup_flow.wait_1]
+name = "Wait 1"
+type = "Wait"
+
+timeout = 1000
+[setup_flow.create_shortcut]
+name = "Create shortcut"
+type = "Link"
+
+source_file = "./VSCode/VSCode.exe"
+target_name = "Visual Studio Code"
+target_args = "${env.USER_ARGS}"
+target_icon = "./VSCode/vscode.ico"
+location_default = "Desktop"
+[setup_flow.create_shortcut2]
+name = "Create shortcut"
+type = "Link"
+
+source_file = "./VSCode/VSCode.exe"
+target_name = "集成开发/Visual Studio Code"
+target_args = "${env.USER_ARGS}"
+target_icon = "./VSCode/vscode.ico"
+location_default = "StartMenu"
+[setup_flow.copy_config]
+name = "Copy config"
+type = "File"
+
+operation = "Copy"
+source = "./VSCode/config/*"
+target = "${SystemDrive}/Users/Config/"
+overwrite = false
+[setup_flow.move_config]
+name = "Move config"
+type = "File"
+
+operation = "Move"
+source = "./_patch/config/*"
+target = "${SystemDrive}/Users/Config/"
+overwrite = false
+[setup_flow.rename_config]
+name = "Rename config"
+type = "File"
+
+operation = "Rename"
+source = "./VSCode/config/*.ini"
+target = "*.wcs"
+[setup_flow.delete_config]
+name = "Delete config"
+type = "File"
+
+operation = "Delete"
+source = "${SystemDrive}/Users/Config/*"
+force = true
+[setup_flow.new_folder]
+name = "New folder"
+type = "File"
+
+operation = "New"
+target = "${SystemDrive}/Users/Config/"
+overwrite = true
+[setup_flow.run_setup_script]
+name = "Run setup script"
+type = "Script"
+
+path = "./setup.cmd"
+args = "${env.USER_ARGS}"
+use = ["uc.AUTO_RUN"]
+pwd = "${SystemDrive}/System32"
+hide = false
+wait = false
+fix = ["./VSCode/install.cmd", "./_retinue/update.py"]
+[setup_flow.start_vscode]
+name = "Start VSCode"
+type = "Execute"
+if = "${uc.AUTO_RUN}==true"
+
+command = "exec explorer ${Desktop}/Visual Studio Code.lnk"
+shell = "pecmd"
+use = ["env.SETUP_PLUGINS"]
+pwd = "${SystemDrive}/System32"
+hide = false
+wait = false
+[setup_flow.kill_vscode]
+name = "Kill VSCode"
+type = "Kill"
+
+target = "vscode.exe"
+[setup_flow.add_path]
+name = "Add PATH"
+type = "Path"
+
+record = "${SystemDrive}/Users/nodejs"
+operation = "Add"
+[setup_flow.log_status]
+name = "Log status"
+type = "Log"
+
+level = "Info"
+msg = "VSCode installed successfully"
+[setup_flow.show_status]
+name = "Show status"
+type = "Toast"
+
+title = "安装成功"
+content = "VSCode 已安装完成"
+[setup_flow.show_status2]
+name = "Show status"
+type = "Dialog"
+
+title = "安装成功"
+content = "是否打开 VSCode？"
+options = ["是", "否"]
+
+
+[setup_flow.start_vscode2]
+name = "Start vscode"
+type = "Execute"
+if = '${Feedback}==1'
+
+command = "explorer ${Desktop}/Visual Studio Code.lnk"
+shell = "cmd"
+[setup_flow.download_vscode]
+name = "Download VSCode"
+type = "Download"
+
+url = "https://az764295.vo.msecnd.net/stable/7f6ab5485bbc008386c4386d08766667e155244e/VSCodeUserSetup-x64-1.60.2.exe"
+save = "./vscode.exe"
+md5 = "DD4DD2E97577D88B4E6E4B3BF4AA86A9"
+overwrite = false
+wait = false
+thread = 16
+[setup_flow.unzip_vscode]
+name = "Unzip VSCode"
+type = "Unzip"
+
+source = "./vscode.exe"
+target = "./VScode"
+overwrite = false
+
+[setup_flow.send_key]
+name = "Send key"
+type = "SendKey"
+
+key = "Enter"
+focus = "Chrome Setup"
+[setup_flow.send_mouse]
+name = "Send mouse"
+type = "SendMouse"
+
+control = "Next"
+focus = "Chrome Setup"
