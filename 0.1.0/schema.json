@@ -54,14 +54,15 @@
       "type": "object",
       "patternProperties": {
         "^\\w*": {
-          "$ref": "#/definitions/generalSteps"
+          "$ref": "#/$defs/generalSteps"
         }
       }
     }
   },
   "required": ["package", "setup_flow"],
-  "definitions": {
-    "generalKeys": {
+  "$defs": {
+    "generalSteps": {
+      "type": "object",
       "properties": {
         "name": {
           "type": "string",
@@ -79,22 +80,18 @@
         "throw": {
           "type": "string"
         }
-      }
-    },
-    "generalSteps": {
-      "type": "object",
-      "$ref": "#/definitions/generalKeys",
+      },
       "required": ["name"],
       "oneOf": [
         {
           "properties": {
-            "type": {
-              "type": "string",
-              "enum": ["Group"]
-            },
             "name": {
               "type": "string",
               "pattern": "^[\\sA-Za-z0-9]+$"
+            },
+            "type": {
+              "type": "string",
+              "enum": ["Group"]
             },
             "if": {
               "type": "string"
@@ -112,7 +109,7 @@
           "required": ["type"],
           "patternProperties": {
             "^\\w*": {
-              "$ref": "#/definitions/generalSteps"
+              "$ref": "#/$defs/generalSteps"
             }
           }
         },
