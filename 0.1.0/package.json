@@ -241,8 +241,8 @@
     },
     "wait_1": {
       "name": "Wait 1",
-      "timeout": 1000,
-      "type": "Wait"
+      "type": "Wait",
+      "timeout": 1000
     }
   }
 }
