@@ -158,7 +158,7 @@
               "enum": ["Desktop", "Taskbar", "StartMenu"]
             }
           },
-          "required":["type"]
+          "required":["type","source_file","target_name"]
         },
         {
           "properties": {
@@ -382,6 +382,84 @@
             }
           },
           "required":["type","title","content"]
+        },
+        {
+          "properties": {
+            "type":{
+              "type":"string",
+              "enum":["Download"]
+            },
+            "url":{
+              "type":"string"
+            },
+            "save":{
+              "type":"string"
+            },
+            "md5":{
+              "type":"string",
+              "pattern": "[a-f\\d]{32}|[A-F\\d]{32}"
+            },
+            "overwrite":{
+              "type":"boolean"
+            },
+            "wait":{
+              "type":"boolean"
+            },
+            "thread":{
+              "type":"integer",
+              "minimum": 1,
+              "maximum": 16
+            }
+          },
+          "required":["type"]
+        },
+        {
+          "properties": {
+            "type":{
+              "type":"string",
+              "enum":["Unzip"]
+            },
+            "source":{
+              "type":"string"
+            },
+            "target":{
+              "type":"string"
+            },
+            "overwrite":{
+              "type":"boolean"
+            }
+          },
+          "required":["type","source","target"]
+        },
+        {
+          "properties": {
+            "type":{
+              "type":"string",
+              "enum":["SendKey"]
+            },
+            "key":{
+              "type":"string"
+            },
+            "focus":{
+              "type":"string"
+            }
+          },
+          "required":["type","key","focus"]
+        },
+        {
+          "properties": {
+            "type":{
+              "type":"string",
+              "enum":["SendMouse"]
+            },
+            "control":{
+              "type":"string"
+            },
+            "focus":{
+              "type":"string"
+            }
+          },
+          "required":["type","control","focus"]
         }
       ]
     }
