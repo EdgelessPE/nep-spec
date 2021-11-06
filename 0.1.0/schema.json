@@ -1,11 +1,98 @@
 {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "title": "NEP Config",
-    "description": "Schema for Next-generation Edgeless Package config in toml",
-    "$id":"https://github.com/EdgelessPE/nep-spec/0.1.0/schema.json",
-    "x-taplo-info": {
-      "authors": ["Cno (https://github.com/Cnotech)"],
-      "version": "0.1.0",
-      "patterns": ["^package.toml$"]
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$id": "https://github.com/EdgelessPE/nep-spec/0.1.0/schema.json",
+  "title": "NEP Config",
+  "description": "Schema for Next-generation Edgeless Package config in toml",
+  "type": "object",
+  "x-taplo-info": {
+    "authors": ["Cno (https://github.com/Cnotech)"],
+    "version": "0.1.0",
+    "patterns": ["^package.toml$"]
+  },
+  "properties": {
+    "package": {
+      "description": "Basic informanion of this package",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[^_]+$"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["Software", "Driver", "Manifest", "Dependency", "Theme"]
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+.\\d+.\\d+.\\d+$"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^\\w+(\\s<@\\w+>)?$"
+          }
+        },
+        "compat": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^([><]=?)?\\d+.\\d+.\\d+$"
+          }
+        },
+        "tested": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^\\d+.\\d+.\\d+$"
+          }
+        }
+      },
+      "required": ["name", "type", "version", "authors", "tested"]
+    },
+    "setup_flow": {
+      "type": "object",
+      "patternProperties": {
+        "^\\w*": {
+          "$ref": "#/$defs/generalSteps"
+        }
+      }
+    }
+  },
+  "required": ["package", "setup_flow"],
+  "$defs": {
+    "generalSteps": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[\\sA-Za-z0-9]+$"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Group",
+            "LogicAnd",
+            "LogicOr",
+            "Modify",
+            "Wait",
+            "Link",
+            "File",
+            "Script",
+            "Execute",
+            "Kill",
+            "Path",
+            "Log",
+            "Toast",
+            "Dialog",
+            "Download",
+            "Unzip",
+            "Sendkey",
+            "SendMouse"
+          ]
+        }
+      },
+      "required": ["name", "type"]
     }
   }
+}

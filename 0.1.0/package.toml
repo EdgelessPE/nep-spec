@@ -1,3 +1,25 @@
-[schema]
-path = "./schema.json"
-enabled = true
+[package]
+# 包名
+name = "VSCode"
+# 类型
+type = "Software"
+# 版本号
+version = "1.46.0.0"
+# 打包者/作者
+# 通过附加 <@github_id>  提供对应的GitHub ID
+authors = [
+  "Cno <@Cnotech>",
+  "Microsoft"
+]
+# 兼容的 Edgeless 版本（可选）
+compat = [">=4.0.0"]
+# 通过测试的 Edgeless 版本
+tested = ["4.0.0","3.2.1"]
+
+[setup_flow.copy_config]
+  name = "Copy config"
+  type = "File1"
+
+  operation = "Copy"
+  source = "./VSCode/_config/*"
+  target = "${SystemDrive}/Users/Config/"

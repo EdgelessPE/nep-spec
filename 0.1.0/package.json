@@ -1,0 +1,32 @@
+{
+    "$schema":"./schema.json",
+    "package": {
+      "authors": [
+        "Cno <@Cnotech>",
+        "Microsoft"
+      ],
+      "compat": [
+        ">=4.0.0"
+      ],
+      "name": "VSCode",
+      "tested": [
+        "4.0.0",
+        "3.2.1"
+      ],
+      "type": "Software",
+      "version": "1.46.0.0"
+    },
+    "setup_flow": {
+      "copy_config": {
+        "name": "Copy config",
+        "operation": "Copy",
+        "source": "./VSCode/_config/*",
+        "target": "${SystemDrive}/Users/Config/",
+        "type": "File"
+      },
+      "test":{
+          "name": "Test",
+          "type": "Link"
+      }
+    }
+  }
