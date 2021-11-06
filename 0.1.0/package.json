@@ -18,15 +18,41 @@
     },
     "setup_flow": {
       "copy_config": {
-        "name": "Copy",
-        "type": "Log",
-        "level": "Info",
-        "msg": "0"
+        "name": "Copy config",
+        "operation": "Copy",
+        "overwrite": false,
+        "source": "./VSCode/config/*",
+        "target": "${SystemDrive}/Users/Config/",
+        "type": "File"
       },
-      "try":{
-        "name": "Try",
-        "type": "LogicAnd",
-        "exp": [""]
+      "delete_config": {
+        "force": true,
+        "name": "Delete config",
+        "operation": "Delete",
+        "source": "${SystemDrive}/Users/Config/*",
+        "type": "File"
+      },
+      "move_config": {
+        "name": "Move config",
+        "operation": "Move",
+        "overwrite": false,
+        "source": "./_patch/config/*",
+        "target": "${SystemDrive}/Users/Config/",
+        "type": "File"
+      },
+      "new_folder": {
+        "name": "New folder",
+        "operation": "New",
+        "overwrite": true,
+        "target": "${SystemDrive}/Users/Config/",
+        "type": "File"
+      },
+      "rename_config": {
+        "name": "Rename config",
+        "operation": "Rename",
+        "source": "./VSCode/config/*.ini",
+        "target": "*.wcs",
+        "type": "File"
       }
     }
   }

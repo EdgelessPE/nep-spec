@@ -175,6 +175,80 @@
             }
           },
           "required":["type"]
+        },
+        {
+          "properties": {
+            "type":{
+              "type":"string",
+              "enum":["File"]
+            }
+          },
+          "required":["type"],
+          "oneOf":[
+            {
+              "properties": {
+                "operation":{
+                  "type":"string",
+                  "enum": ["Copy","Move"]
+                },
+                "source":{
+                  "type":"string"
+                },
+                "target":{
+                  "type":"string"
+                },
+                "overwrite":{
+                  "type":"boolean"
+                }
+              },
+              "required":["operation","source","target"]
+            },
+            {
+              "properties": {
+                "operation":{
+                  "type":"string",
+                  "enum": ["Rename"]
+                },
+                "source":{
+                  "type":"string"
+                },
+                "target":{
+                  "type":"string"
+                }
+              },
+              "required":["operation","source","target"]
+            },
+            {
+              "properties": {
+                "operation":{
+                  "type":"string",
+                  "enum": ["Delete"]
+                },
+                "source":{
+                  "type":"string"
+                },
+                "force":{
+                  "type":"boolean"
+                }
+              },
+              "required":["operation","source"]
+            },
+            {
+              "properties": {
+                "operation":{
+                  "type":"string",
+                  "enum": ["New"]
+                },
+                "target":{
+                  "type":"string"
+                },
+                "overwrite":{
+                  "type":"boolean"
+                }
+              },
+              "required":["operation","target"]
+            }
+          ]
         }
       ]
     }
