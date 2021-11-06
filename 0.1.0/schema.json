@@ -68,31 +68,115 @@
           "type": "string",
           "pattern": "^[\\sA-Za-z0-9]+$"
         },
-        "type": {
-          "type": "string",
-          "enum": [
-            "Group",
-            "LogicAnd",
-            "LogicOr",
-            "Modify",
-            "Wait",
-            "Link",
-            "File",
-            "Script",
-            "Execute",
-            "Kill",
-            "Path",
-            "Log",
-            "Toast",
-            "Dialog",
-            "Download",
-            "Unzip",
-            "Sendkey",
-            "SendMouse"
-          ]
+        "if":{
+          "type":"string"
+        },
+        "else":{
+          "type":"string"
+        },
+        "elif":{
+          "type":"string"
+        },
+        "throw":{
+          "type":"string"
         }
       },
-      "required": ["name", "type"]
+      "required": ["name"],
+      "oneOf":[
+        {
+          "properties": {
+            "type":{
+              "type":"string",
+              "enum":["Group"]
+            }
+          },
+          "required":["type"]
+        },
+        {
+          "properties": {
+            "type":{
+              "type":"string",
+              "enum":["Log"]
+            },
+            "level":{
+              "type":"string",
+              "enum": ["Info","Warning","Error"]
+            },
+            "msg":{
+              "type":"string"
+            }
+          },
+          "required":["type","level","msg"]
+        },
+        {
+          "properties": {
+            "type":{
+              "type":"string",
+              "enum":["LogicAnd","LogicOr"]
+            },
+            "exp":{
+              "type":"array",
+              "items": {
+                "type":"string"
+              }
+            }
+          },
+          "required":["type","exp"]
+        },
+        {
+          "properties": {
+            "type":{
+              "type":"string",
+              "enum":["Modify"]
+            },
+            "key":{
+              "type":"string",
+              "pattern": "^(?:env|uc).\\w+$"
+            },
+            "value":{
+              "type":["string","integer","boolean"]
+            }
+          },
+          "required":["type","key","value"]
+        },
+        {
+          "properties": {
+            "type":{
+              "type":"string",
+              "enum":["Wait"]
+            },
+            "timeout":{
+              "type":"integer"
+            }
+          },
+          "required":["type","timeout"]
+        },
+        {
+          "properties": {
+            "type":{
+              "type":"string",
+              "enum":["Link"]
+            },
+            "source_file":{
+              "type":"string"
+            },
+            "target_name":{
+              "type":"string"
+            },
+            "target_args":{
+              "type":"string"
+            },
+            "target_icon":{
+              "type":"string"
+            },
+            "location_default":{
+              "type":"string",
+              "enum": ["Desktop", "Taskbar", "StartMenu"]
+            }
+          },
+          "required":["type"]
+        }
+      ]
     }
   }
 }

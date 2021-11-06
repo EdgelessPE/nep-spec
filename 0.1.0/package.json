@@ -18,11 +18,15 @@
     },
     "setup_flow": {
       "copy_config": {
-        "name": "Copy config",
-        "operation": "Copy",
-        "source": "./VSCode/_config/*",
-        "target": "${SystemDrive}/Users/Config/",
-        "type": "File"
+        "name": "Copy",
+        "type": "Log",
+        "level": "Info",
+        "msg": "0"
+      },
+      "try":{
+        "name": "Try",
+        "type": "LogicAnd",
+        "exp": [""]
       }
     }
   }

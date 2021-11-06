@@ -17,9 +17,7 @@ compat = [">=4.0.0"]
 tested = ["4.0.0","3.2.1"]
 
 [setup_flow.copy_config]
-  name = "Copy config"
-  type = "File"
-
-  operation = "Copy"
-  source = "./VSCode/_config/*"
-  target = "${SystemDrive}/Users/Config/"
+name = "Copy"
+type = "Log"
+level = "Info"
+msg = "0"
