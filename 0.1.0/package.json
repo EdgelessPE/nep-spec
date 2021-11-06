@@ -88,7 +88,7 @@
       "install_2": {
         "command": "./MySoftware/Installer2.exe /S",
         "name": "Install 2",
-        "shell": "cmd",
+        "shell": "0",
         "type": "Execute"
       },
       "install_3": {

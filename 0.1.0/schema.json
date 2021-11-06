@@ -84,14 +84,15 @@
       "required": ["name"],
       "oneOf": [
         {
-          "properties": {
+          "type":"object",
+          "patternProperties": {
             "name": {
               "type": "string",
               "pattern": "^[\\sA-Za-z0-9]+$"
             },
-            "type": {
-              "type": "string",
-              "enum": ["Group"]
+            "type":{
+              "type":"string",
+              "enum":["Group"]
             },
             "if": {
               "type": "string"
@@ -104,14 +105,12 @@
             },
             "throw": {
               "type": "string"
-            }
-          },
-          "required": ["type"],
-          "patternProperties": {
-            "^\\w*": {
+            },
+            "^install_\\w*": {
               "$ref": "#/$defs/generalSteps"
             }
-          }
+          },
+          "required": ["type"]
         },
         {
           "properties": {
