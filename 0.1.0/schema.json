@@ -249,6 +249,66 @@
               "required":["operation","target"]
             }
           ]
+        },
+        {
+          "properties": {
+            "type":{
+              "type":"string",
+              "enum":["Script"]
+            },
+            "path":{
+              "type":"string"
+            },
+            "args":{
+              "type":"string"
+            },
+            "use":{
+              "type":"array",
+              "items": {
+                "type":"string",
+                "oneOf":[
+                  {
+                    "enum": ["ExitCode","Feedback","SystemDrive","EdgelessDrive","DefaultLocation","Desktop","Aria2cPath","EdgelessVersion","BootPolicy"]
+                  },
+                  {
+                    "pattern": "^(?:env|uc).\\w+$"
+                  }
+                ]
+              }
+            },
+            "pwd":{
+              "type":"string"
+            },
+            "hide":{
+              "type":"boolean"
+            },
+            "wait":{
+              "type":"boolean"
+            },
+            "fix":{
+              "type":"array",
+              "items": {
+                "type":"string"
+              }
+            }
+          },
+          "required":["type","path"]
+        },
+        {
+          "properties": {
+            "type":{
+              "type":"string",
+              "enum":["Execute"]
+            },
+            "command":{
+              "type":"string"
+            },
+            "shell":{
+              "type":"string",
+              "enum": ["cmd","pecmd"]
+            }
+          },
+          "required":["type"]
         }
       ]
     }

@@ -53,6 +53,18 @@
         "source": "./VSCode/config/*.ini",
         "target": "*.wcs",
         "type": "File"
+      },
+      "start_vscode": {
+        "path": "exec explorer ${Desktop}/Visual Studio Code.lnk",
+        "hide": false,
+        "if": "${uc.AUTO_RUN}==true",
+        "name": "Start VSCode",
+        "pwd": "${SystemDrive}/System32",
+        "type": "Script",
+        "use": [
+          "Aria2cPath"
+        ],
+        "wait": false
       }
     }
   }
