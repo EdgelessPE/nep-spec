@@ -1,4 +1,5 @@
 {
+  "$schema":"./schema.json",
   "package": {
     "authors": [
       "Cno <@Cnotech>",
