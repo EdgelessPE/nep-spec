@@ -61,198 +61,232 @@
   },
   "required": ["package", "setup_flow"],
   "definitions": {
-    "generalSteps": {
-      "type": "object",
+    "generalKeys": {
       "properties": {
         "name": {
           "type": "string",
           "pattern": "^[\\sA-Za-z0-9]+$"
         },
-        "if":{
-          "type":"string"
+        "if": {
+          "type": "string"
         },
-        "else":{
-          "type":"string"
+        "else": {
+          "type": "string"
         },
-        "elif":{
-          "type":"string"
+        "elif": {
+          "type": "string"
         },
-        "throw":{
-          "type":"string"
+        "throw": {
+          "type": "string"
         }
-      },
+      }
+    },
+    "generalSteps": {
+      "type": "object",
+      "$ref": "#/definitions/generalKeys",
       "required": ["name"],
-      "oneOf":[
+      "oneOf": [
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["Group"]
+            "type": {
+              "type": "string",
+              "enum": ["Group"]
+            },
+            "name": {
+              "type": "string",
+              "pattern": "^[\\sA-Za-z0-9]+$"
+            },
+            "if": {
+              "type": "string"
+            },
+            "else": {
+              "type": "string"
+            },
+            "elif": {
+              "type": "string"
+            },
+            "throw": {
+              "type": "string"
             }
           },
-          "required":["type"]
+          "required": ["type"],
+          "patternProperties": {
+            "^\\w*": {
+              "$ref": "#/definitions/generalSteps"
+            }
+          }
         },
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["LogicAnd","LogicOr"]
+            "type": {
+              "type": "string",
+              "enum": ["LogicAnd", "LogicOr"]
             },
-            "exp":{
-              "type":"array",
+            "exp": {
+              "type": "array",
               "items": {
-                "type":"string"
+                "type": "string"
               }
             }
           },
-          "required":["type","exp"]
+          "required": ["type", "exp"]
         },
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["Modify"]
+            "type": {
+              "type": "string",
+              "enum": ["Modify"]
             },
-            "key":{
-              "type":"string",
+            "key": {
+              "type": "string",
               "pattern": "^(?:env|uc).\\w+$"
             },
-            "value":{
-              "type":["string","integer","boolean"]
+            "value": {
+              "type": ["string", "integer", "boolean"]
             }
           },
-          "required":["type","key","value"]
+          "required": ["type", "key", "value"]
         },
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["Wait"]
+            "type": {
+              "type": "string",
+              "enum": ["Wait"]
             },
-            "timeout":{
-              "type":"integer"
+            "timeout": {
+              "type": "integer"
             }
           },
-          "required":["type","timeout"]
+          "required": ["type", "timeout"]
         },
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["Link"]
+            "type": {
+              "type": "string",
+              "enum": ["Link"]
             },
-            "source_file":{
-              "type":"string"
+            "source_file": {
+              "type": "string"
             },
-            "target_name":{
-              "type":"string"
+            "target_name": {
+              "type": "string"
             },
-            "target_args":{
-              "type":"string"
+            "target_args": {
+              "type": "string"
             },
-            "target_icon":{
-              "type":"string"
+            "target_icon": {
+              "type": "string"
             },
-            "location_default":{
-              "type":"string",
+            "location_default": {
+              "type": "string",
               "enum": ["Desktop", "Taskbar", "StartMenu"]
             }
           },
-          "required":["type","source_file","target_name"]
+          "required": ["type", "source_file", "target_name"]
         },
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["File"]
+            "type": {
+              "type": "string",
+              "enum": ["File"]
             }
           },
-          "required":["type"],
-          "oneOf":[
+          "required": ["type"],
+          "oneOf": [
             {
               "properties": {
-                "operation":{
-                  "type":"string",
-                  "enum": ["Copy","Move"]
+                "operation": {
+                  "type": "string",
+                  "enum": ["Copy", "Move"]
                 },
-                "source":{
-                  "type":"string"
+                "source": {
+                  "type": "string"
                 },
-                "target":{
-                  "type":"string"
+                "target": {
+                  "type": "string"
                 },
-                "overwrite":{
-                  "type":"boolean"
+                "overwrite": {
+                  "type": "boolean"
                 }
               },
-              "required":["operation","source","target"]
+              "required": ["operation", "source", "target"]
             },
             {
               "properties": {
-                "operation":{
-                  "type":"string",
+                "operation": {
+                  "type": "string",
                   "enum": ["Rename"]
                 },
-                "source":{
-                  "type":"string"
+                "source": {
+                  "type": "string"
                 },
-                "target":{
-                  "type":"string"
+                "target": {
+                  "type": "string"
                 }
               },
-              "required":["operation","source","target"]
+              "required": ["operation", "source", "target"]
             },
             {
               "properties": {
-                "operation":{
-                  "type":"string",
+                "operation": {
+                  "type": "string",
                   "enum": ["Delete"]
                 },
-                "source":{
-                  "type":"string"
+                "source": {
+                  "type": "string"
                 },
-                "force":{
-                  "type":"boolean"
+                "force": {
+                  "type": "boolean"
                 }
               },
-              "required":["operation","source"]
+              "required": ["operation", "source"]
             },
             {
               "properties": {
-                "operation":{
-                  "type":"string",
+                "operation": {
+                  "type": "string",
                   "enum": ["New"]
                 },
-                "target":{
-                  "type":"string"
+                "target": {
+                  "type": "string"
                 },
-                "overwrite":{
-                  "type":"boolean"
+                "overwrite": {
+                  "type": "boolean"
                 }
               },
-              "required":["operation","target"]
+              "required": ["operation", "target"]
             }
           ]
         },
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["Script"]
+            "type": {
+              "type": "string",
+              "enum": ["Script"]
             },
-            "path":{
-              "type":"string"
+            "path": {
+              "type": "string"
             },
-            "args":{
-              "type":"string"
+            "args": {
+              "type": "string"
             },
-            "use":{
-              "type":"array",
+            "use": {
+              "type": "array",
               "items": {
-                "type":"string",
-                "oneOf":[
+                "type": "string",
+                "oneOf": [
                   {
-                    "enum": ["ExitCode","Feedback","SystemDrive","EdgelessDrive","DefaultLocation","Desktop","Aria2cPath","EdgelessVersion","BootPolicy"]
+                    "enum": [
+                      "ExitCode",
+                      "Feedback",
+                      "SystemDrive",
+                      "EdgelessDrive",
+                      "DefaultLocation",
+                      "Desktop",
+                      "Aria2cPath",
+                      "EdgelessVersion",
+                      "BootPolicy"
+                    ]
                   },
                   {
                     "pattern": "^(?:env|uc).\\w+$"
@@ -260,206 +294,206 @@
                 ]
               }
             },
-            "pwd":{
-              "type":"string"
+            "pwd": {
+              "type": "string"
             },
-            "hide":{
-              "type":"boolean"
+            "hide": {
+              "type": "boolean"
             },
-            "wait":{
-              "type":"boolean"
+            "wait": {
+              "type": "boolean"
             },
-            "fix":{
-              "type":"array",
+            "fix": {
+              "type": "array",
               "items": {
-                "type":"string"
+                "type": "string"
               }
             }
           },
-          "required":["type","path"]
+          "required": ["type", "path"]
         },
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["Execute"]
+            "type": {
+              "type": "string",
+              "enum": ["Execute"]
             },
-            "command":{
-              "type":"string"
+            "command": {
+              "type": "string"
             },
-            "shell":{
-              "type":"string",
-              "enum": ["cmd","pecmd"]
+            "shell": {
+              "type": "string",
+              "enum": ["cmd", "pecmd"]
             },
-            "pwd":{
-              "type":"string"
+            "pwd": {
+              "type": "string"
             },
-            "hide":{
-              "type":"boolean"
+            "hide": {
+              "type": "boolean"
             },
-            "wait":{
-              "type":"boolean"
+            "wait": {
+              "type": "boolean"
             }
           },
-          "required":["type","command","shell"]
+          "required": ["type", "command", "shell"]
         },
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["Kill"]
+            "type": {
+              "type": "string",
+              "enum": ["Kill"]
             },
-            "target":{
-              "type":"string"
+            "target": {
+              "type": "string"
             }
           },
-          "required":["type","target"]
+          "required": ["type", "target"]
         },
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["Path"]
+            "type": {
+              "type": "string",
+              "enum": ["Path"]
             },
-            "record":{
-              "type":"string"
+            "record": {
+              "type": "string"
             },
-            "operation":{
-              "type":"string",
-              "enum": ["Add","Remove"]
+            "operation": {
+              "type": "string",
+              "enum": ["Add", "Remove"]
             }
           },
-          "required":["type","record","operation"]
+          "required": ["type", "record", "operation"]
         },
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["Log"]
+            "type": {
+              "type": "string",
+              "enum": ["Log"]
             },
-            "level":{
-              "type":"string",
-              "enum": ["Info","Warning","Error"]
+            "level": {
+              "type": "string",
+              "enum": ["Info", "Warning", "Error"]
             },
-            "msg":{
-              "type":"string"
+            "msg": {
+              "type": "string"
             }
           },
-          "required":["type","level","msg"]
+          "required": ["type", "level", "msg"]
         },
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["Toast"]
+            "type": {
+              "type": "string",
+              "enum": ["Toast"]
             },
-            "title":{
-              "type":"string"
+            "title": {
+              "type": "string"
             },
-            "content":{
-              "type":"string"
+            "content": {
+              "type": "string"
             }
           },
-          "required":["type","title","content"]
+          "required": ["type", "title", "content"]
         },
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["Dialog"]
+            "type": {
+              "type": "string",
+              "enum": ["Dialog"]
             },
-            "title":{
-              "type":"string"
+            "title": {
+              "type": "string"
             },
-            "content":{
-              "type":"string"
+            "content": {
+              "type": "string"
             },
-            "options":{
-              "type":"array",
+            "options": {
+              "type": "array",
               "items": {
-                "type":"string"
+                "type": "string"
               }
             }
           },
-          "required":["type","title","content"]
+          "required": ["type", "title", "content"]
         },
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["Download"]
+            "type": {
+              "type": "string",
+              "enum": ["Download"]
             },
-            "url":{
-              "type":"string"
+            "url": {
+              "type": "string"
             },
-            "save":{
-              "type":"string"
+            "save": {
+              "type": "string"
             },
-            "md5":{
-              "type":"string",
+            "md5": {
+              "type": "string",
               "pattern": "[a-f\\d]{32}|[A-F\\d]{32}"
             },
-            "overwrite":{
-              "type":"boolean"
+            "overwrite": {
+              "type": "boolean"
             },
-            "wait":{
-              "type":"boolean"
+            "wait": {
+              "type": "boolean"
             },
-            "thread":{
-              "type":"integer",
+            "thread": {
+              "type": "integer",
               "minimum": 1,
               "maximum": 16
             }
           },
-          "required":["type"]
+          "required": ["type"]
         },
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["Unzip"]
+            "type": {
+              "type": "string",
+              "enum": ["Unzip"]
             },
-            "source":{
-              "type":"string"
+            "source": {
+              "type": "string"
             },
-            "target":{
-              "type":"string"
+            "target": {
+              "type": "string"
             },
-            "overwrite":{
-              "type":"boolean"
+            "overwrite": {
+              "type": "boolean"
             }
           },
-          "required":["type","source","target"]
+          "required": ["type", "source", "target"]
         },
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["SendKey"]
+            "type": {
+              "type": "string",
+              "enum": ["SendKey"]
             },
-            "key":{
-              "type":"string"
+            "key": {
+              "type": "string"
             },
-            "focus":{
-              "type":"string"
+            "focus": {
+              "type": "string"
             }
           },
-          "required":["type","key","focus"]
+          "required": ["type", "key", "focus"]
         },
         {
           "properties": {
-            "type":{
-              "type":"string",
-              "enum":["SendMouse"]
+            "type": {
+              "type": "string",
+              "enum": ["SendMouse"]
             },
-            "control":{
-              "type":"string"
+            "control": {
+              "type": "string"
             },
-            "focus":{
-              "type":"string"
+            "focus": {
+              "type": "string"
             }
           },
-          "required":["type","control","focus"]
+          "required": ["type", "control", "focus"]
         }
       ]
     }
