@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "$id": "https://github.com/EdgelessPE/nep-spec/0.1.0/schema.json",
+  "$id": "https://github.com/EdgelessPE/nep-spec/master/0.1.0/schema.json",
   "title": "NEP Config",
   "description": "Schema for Next-generation Edgeless Package config in toml",
   "type": "object",
@@ -54,13 +54,13 @@
       "type": "object",
       "patternProperties": {
         "^\\w*": {
-          "$ref": "#/$defs/generalSteps"
+          "$ref": "#/definitions/generalSteps"
         }
       }
     }
   },
   "required": ["package", "setup_flow"],
-  "$defs": {
+  "definitions": {
     "generalSteps": {
       "type": "object",
       "properties": {
