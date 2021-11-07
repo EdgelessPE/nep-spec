@@ -1,6 +1,0 @@
-include = ["package.toml"]
-exclude = ["taplo.toml"]
-
-[schema]
-path = "./schema.json"
-enabled = true
