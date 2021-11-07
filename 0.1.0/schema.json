@@ -607,6 +607,12 @@
                 },
                 "required": ["title", "value"]
               }
+            },
+            "min":{
+              "type":"integer"
+            },
+            "max":{
+              "type":"integer"
             }
           }
         },
@@ -629,6 +635,12 @@
                 },
                 "required": ["title", "value"]
               }
+            },
+            "regex":{
+              "type":"string"
+            },
+            "tip":{
+              "type":"string"
             }
           }
         }

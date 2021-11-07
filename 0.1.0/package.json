@@ -260,7 +260,7 @@
     "AUTO_RUN": {
       "default": false,
       "description": "启动时自动运行VSCode",
-      "name": 0,
+      "name": "开机启动",
       "options": [
         {
           "title": "是",

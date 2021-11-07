@@ -5,4 +5,4 @@
 * Modify类型给定的key是否存在、value类型是否与原类型相同；Script中use的变量是否存在；${}解析是否正确
 * 路径类的路径存在确认问题
 * Download和Aria2cPath只能在展开工作流
-* uc可选值表中
+* uc的string类型中regex是否有效
