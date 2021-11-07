@@ -57,6 +57,67 @@
           "$ref": "#/definitions/generalSteps"
         }
       }
+    },
+    "remove_flow": {
+      "type": "object",
+      "patternProperties": {
+        "^\\w*": {
+          "$ref": "#/definitions/generalSteps"
+        }
+      }
+    },
+    "expand_flow": {
+      "type": "object",
+      "patternProperties": {
+        "^\\w*": {
+          "$ref": "#/definitions/generalSteps"
+        }
+      }
+    },
+    "hooks": {
+      "type": "object",
+      "properties": {
+        "onDesktopShown": {
+          "type": "object",
+          "patternProperties": {
+            "^\\w*": {
+              "$ref": "#/definitions/generalSteps"
+            }
+          }
+        },
+        "onBootFinished": {
+          "type": "object",
+          "patternProperties": {
+            "^\\w*": {
+              "$ref": "#/definitions/generalSteps"
+            }
+          }
+        },
+        "onExit": {
+          "type": "object",
+          "patternProperties": {
+            "^\\w*": {
+              "$ref": "#/definitions/generalSteps"
+            }
+          }
+        }
+      }
+    },
+    "env": {
+      "type": "object",
+      "patternProperties": {
+        "^\\w*": {
+          "type": ["integer", "boolean", "string"]
+        }
+      }
+    },
+    "uc": {
+      "type": "object",
+      "patternProperties": {
+        "^\\w*": {
+          "$ref": "#/definitions/ucDefination"
+        }
+      }
     }
   },
   "required": ["package", "setup_flow"],
@@ -84,15 +145,15 @@
       "required": ["name"],
       "oneOf": [
         {
-          "type":"object",
+          "type": "object",
           "patternProperties": {
             "name": {
               "type": "string",
               "pattern": "^[\\sA-Za-z0-9]+$"
             },
-            "type":{
-              "type":"string",
-              "enum":["Group"]
+            "type": {
+              "type": "string",
+              "enum": ["Group"]
             },
             "if": {
               "type": "string"
@@ -490,6 +551,86 @@
             }
           },
           "required": ["type", "control", "focus"]
+        }
+      ]
+    },
+    "ucDefination":{
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "description", "default"],
+      "oneOf": [
+        {
+          "properties": {
+            "default": {
+              "type": "boolean"
+            },
+            "options": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "boolean"
+                  }
+                },
+                "required": ["title", "value"]
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "default": {
+              "type": "integer"
+            },
+            "options": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "integer"
+                  }
+                },
+                "required": ["title", "value"]
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "default": {
+              "type": "string"
+            },
+            "options": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": ["title", "value"]
+              }
+            }
+          }
         }
       ]
     }
