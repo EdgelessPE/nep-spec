@@ -106,7 +106,7 @@
             "throw": {
               "type": "string"
             },
-            "^install_\\w*": {
+            "^_\\w*": {
               "$ref": "#/$defs/generalSteps"
             }
           },

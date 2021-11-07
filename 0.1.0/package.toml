@@ -19,7 +19,7 @@ type = "Group"
 # 使用一个条件语句控制整组步骤的执行
 if = "${uc.GROUP_INSTALL}==true"
 
-[setup_flow.install_group.install_1]
+[setup_flow.install_group._install_1]
 name = "Install 1"
 type = "Execute"
 
@@ -27,7 +27,7 @@ command = "./MySoftware/Installer1.exe /S"
 shell = "cmd"
 
 
-[setup_flow.install_group.install_2]
+[setup_flow.install_group._install_2]
 name = "Install 2"
 type = "Execute"
 
@@ -35,7 +35,7 @@ command = "./MySoftware/Installer2.exe /S"
 shell = "cmd"
 
 
-[setup_flow.install_group.install_3]
+[setup_flow.install_group._install_3]
 name = "Install 3"
 type = "Execute"
 

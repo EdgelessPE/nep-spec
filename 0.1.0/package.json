@@ -79,23 +79,34 @@
       "if": "${uc.GROUP_INSTALL}==true",
       "name": "Install Group",
       "type": "Group",
-      "install_1": {
+      "_install_1": {
         "command": "./MySoftware/Installer1.exe /S",
         "name": "Install 1",
         "shell": "cmd",
         "type": "Execute"
       },
-      "install_2": {
+      "_install_2": {
         "command": "./MySoftware/Installer2.exe /S",
         "name": "Install 2",
-        "shell": "0",
+        "shell": "cmd",
         "type": "Execute"
       },
-      "install_3": {
+      "_install_3": {
         "command": "./MySoftware/Installer3.exe /S",
         "name": "Install 3",
         "shell": "cmd",
         "type": "Execute"
+      },
+      "_another_group":{
+        "name": "Another Group",
+        "type":"Group",
+        "_another_step":{
+          "name": "Another Step",
+          "if": "true",
+          "type":"Log",
+          "level": "Info",
+          "msg": "2333"
+        }
       }
     },
     "kill_vscode": {
