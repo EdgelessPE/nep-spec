@@ -10,3 +10,4 @@
 * 禁止出现X:和C:
 * 是否需要remove_flow
 * 驱动独占表：如果 brand 为 Microsoft 则此项可以省略并显示为通用
+* uc中整型的min<=max
