@@ -118,9 +118,226 @@
           "$ref": "#/definitions/ucDefination"
         }
       }
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "service": {
+      "type": "object",
+      "properties": {
+        "progress": {
+          "type": "string",
+          "pattern": "^\\w+\\.exe$"
+        },
+        "start": {
+          "type": "string"
+        },
+        "stop": {
+          "type": "string"
+        }
+      },
+      "required": ["progress", "start", "stop"]
+    },
+    "dependencies": {
+      "type": "object",
+      "properties": {
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            },
+            "required": ["name", "version"]
+          }
+        },
+        "suggested": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "remark": {
+                "type": "string"
+              }
+            },
+            "required": ["name", "version", "remark"]
+          }
+        }
+      }
     }
   },
-  "required": ["package", "setup_flow"],
+  "oneOf": [
+    {
+      "properties": {
+        "software": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string",
+              "enum": [
+                "实用工具",
+                "开发辅助",
+                "配置检测",
+                "资源管理",
+                "办公编辑",
+                "输入法",
+                "集成开发",
+                "录屏看图",
+                "磁盘数据",
+                "安全急救",
+                "网课会议",
+                "即时通讯",
+                "安装备份",
+                "游戏娱乐",
+                "运行环境",
+                "压缩镜像",
+                "美化增强",
+                "驱动管理",
+                "下载上传",
+                "浏览器",
+                "影音播放",
+                "远程连接"
+              ]
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "language": {
+              "type": "string",
+              "enum": ["Multi", "zh-CN", "en-US"]
+            },
+            "location": {
+              "type": "string"
+            }
+          },
+          "required": ["category", "tags", "language"]
+        }
+      },
+      "required": ["package", "setup_flow", "software"]
+    },
+    {
+      "properties": {
+        "driver": {
+          "type": "object",
+          "properties": {
+            "brand": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "存储",
+                "音频",
+                "有线网卡",
+                "无线网卡",
+                "人体工程学输入",
+                "视频输入",
+                "主板",
+                "蓝牙",
+                "打印机",
+                "显卡",
+                "其他"
+              ]
+            },
+            "models": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^\\w+-?\\w+$"
+              }
+            }
+          },
+          "required": ["category", "tags", "language"]
+        }
+      },
+      "required": ["package", "setup_flow", "driver"]
+    },
+    {
+      "properties": {
+        "theme": {
+          "type": "object",
+          "properties": {
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": ["tags"]
+        }
+      },
+      "required": ["package", "setup_flow", "theme"]
+    },
+    {
+      "properties": {
+        "manifest": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string",
+              "enum": [
+                "实用工具",
+                "开发辅助",
+                "配置检测",
+                "资源管理",
+                "办公编辑",
+                "输入法",
+                "集成开发",
+                "录屏看图",
+                "磁盘数据",
+                "安全急救",
+                "网课会议",
+                "即时通讯",
+                "安装备份",
+                "游戏娱乐",
+                "运行环境",
+                "压缩镜像",
+                "美化增强",
+                "驱动管理",
+                "下载上传",
+                "浏览器",
+                "影音播放",
+                "远程连接"
+              ]
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "language": {
+              "type": "string",
+              "enum": ["Multi", "zh-CN", "en-US"]
+            },
+            "location": {
+              "type": "string"
+            }
+          },
+          "required": ["category", "tags", "language"]
+        }
+      },
+      "required": ["package", "setup_flow", "manifest"]
+    }
+  ],
   "definitions": {
     "generalSteps": {
       "type": "object",
@@ -488,7 +705,7 @@
             },
             "md5": {
               "type": "string",
-              "pattern": "[a-f\\d]{32}|[A-F\\d]{32}"
+              "pattern": "^[a-f\\d]{32}|[A-F\\d]{32}$"
             },
             "overwrite": {
               "type": "boolean"
@@ -554,7 +771,7 @@
         }
       ]
     },
-    "ucDefination":{
+    "ucDefination": {
       "type": "object",
       "properties": {
         "name": {
@@ -608,11 +825,11 @@
                 "required": ["title", "value"]
               }
             },
-            "min":{
-              "type":"integer"
+            "min": {
+              "type": "integer"
             },
-            "max":{
-              "type":"integer"
+            "max": {
+              "type": "integer"
             }
           }
         },
@@ -636,11 +853,11 @@
                 "required": ["title", "value"]
               }
             },
-            "regex":{
-              "type":"string"
+            "regex": {
+              "type": "string"
             },
-            "tip":{
-              "type":"string"
+            "tip": {
+              "type": "string"
             }
           }
         }
