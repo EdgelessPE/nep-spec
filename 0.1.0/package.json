@@ -301,5 +301,50 @@
       "min": 0,
       "name": "音量"
     }
+  },
+  "manifest": {
+    "category": "办公编辑",
+    "language": "Multi",
+    "location": "${SystemDrive}/Users/PortableApps",
+    "tags": [
+      "Visual Studio Code",
+      "VSC",
+      "code"
+    ]
+  },
+  "profiles": {
+    "dir": [
+      "${SystemDrive}/Users/profiles"
+    ]
+  },
+  "service": {
+    "progress": "sshd.exe",
+    "start": "./sshd.exe",
+    "stop": "taskkill /im sshd.exe /t"
+  },
+  "dependencies": {
+    "required": [
+      {
+        "name": "dotnet",
+        "version": "3.5.0"
+      }
+    ],
+    "suggested": [
+      {
+        "name": "PowerShell",
+        "remark": "推荐搭配PowerShell使用",
+        "version": "0.0.0"
+      },
+      {
+        "name": "Nodejs-runtime",
+        "remark": "如果需要爬虫功能则必须安装此依赖",
+        "version": ">=15.0.0"
+      },
+      {
+        "name": "",
+        "version": ">=1.5",
+        "remark": ""
+      }
+    ]
   }
 }
