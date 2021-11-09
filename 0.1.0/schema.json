@@ -128,7 +128,8 @@
             "type": "string"
           }
         }
-      }
+      },
+      "required":["dir"]
     },
     "service": {
       "type": "object",
@@ -183,7 +184,8 @@
             "required": ["name", "version", "remark"]
           }
         }
-      }
+      },
+      "required":["required","suggested"]
     }
   },
   "oneOf": [
