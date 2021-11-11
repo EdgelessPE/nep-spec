@@ -236,6 +236,9 @@
             },
             "location": {
               "type": "string"
+            },
+            "defaultFullLoad":{
+              "type":"boolean"
             }
           },
           "required": ["category", "tags", "language","uac"]
@@ -344,6 +347,9 @@
             },
             "location": {
               "type": "string"
+            },
+            "defaultFullLoad":{
+              "type":"boolean"
             }
           },
           "required": ["category", "tags", "language","uac"]
