@@ -613,6 +613,9 @@
               "type": "string",
               "enum": ["cmd", "pecmd"]
             },
+            "callInstaller": {
+              "type": "boolean"
+            },
             "pwd": {
               "type": "string"
             },
@@ -623,7 +626,7 @@
               "type": "boolean"
             }
           },
-          "required": ["type", "command", "shell"]
+          "required": ["type", "command"]
         },
         {
           "properties": {
