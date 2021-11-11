@@ -231,11 +231,14 @@
               "type": "string",
               "enum": ["Multi", "zh-CN", "en-US"]
             },
+            "uac":{
+              "type":"boolean"
+            },
             "location": {
               "type": "string"
             }
           },
-          "required": ["category", "tags", "language"]
+          "required": ["category", "tags", "language","uac"]
         }
       },
       "required": ["package", "setup_flow", "software"]
@@ -336,11 +339,14 @@
               "type": "string",
               "enum": ["Multi", "zh-CN", "en-US"]
             },
+            "uac":{
+              "type":"boolean"
+            },
             "location": {
               "type": "string"
             }
           },
-          "required": ["category", "tags", "language"]
+          "required": ["category", "tags", "language","uac"]
         }
       },
       "required": ["package", "setup_flow", "manifest"]
