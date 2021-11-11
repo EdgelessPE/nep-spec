@@ -46,6 +46,9 @@
             "type": "string",
             "pattern": "^\\d+.\\d+.\\d+$"
           }
+        },
+        "licence": {
+          "type": "string"
         }
       },
       "required": ["name", "type", "version", "authors", "tested"]
@@ -186,6 +189,18 @@
         }
       },
       "required":["required","suggested"]
+    },
+    "polt":{
+      "type":"object",
+      "properties": {
+        "required":{
+          "type":"array",
+          "items": {
+            "type":"string"
+          }
+        }
+      },
+      "required":["required"]
     }
   },
   "oneOf": [
