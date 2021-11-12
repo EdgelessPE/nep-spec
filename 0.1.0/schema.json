@@ -193,14 +193,26 @@
     "polt":{
       "type":"object",
       "properties": {
-        "required":{
+        "fileList":{
           "type":"array",
           "items": {
-            "type":"string"
+            "type":"object",
+            "properties": {
+              "name":{
+                "type":"string"
+              },
+              "description":{
+                "type":"string"
+              },
+              "required":{
+                "type":"boolean"
+              }
+            },
+            "required":["name","description","required"]
           }
         }
       },
-      "required":["required"]
+      "required":["fileList"]
     }
   },
   "oneOf": [

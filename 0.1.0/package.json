@@ -348,5 +348,14 @@
         "remark": ""
       }
     ]
+  },
+  "polt": {
+    "fileList": [
+      {
+        "description": "frp客户端配置文件",
+        "name": "frpc.ini",
+        "required": true
+      }
+    ]
   }
 }
