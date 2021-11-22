@@ -304,10 +304,6 @@
     }
   },
   "manifest": {
-    "category": "办公编辑",
-    "language": "Multi",
-    "location": "${SystemDrive}/Users/PortableApps",
-    "uac": false,
     "tags": [
       "Visual Studio Code",
       "VSC",
