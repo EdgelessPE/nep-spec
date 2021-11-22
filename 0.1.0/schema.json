@@ -221,6 +221,10 @@
         "software": {
           "type": "object",
           "properties": {
+            "upstream":{
+              "type":"string",
+              "pattern": "^https?://\\S+"
+            },
             "category": {
               "type": "string",
               "enum": [
@@ -268,7 +272,7 @@
               "type":"boolean"
             }
           },
-          "required": ["category", "tags", "language","uac"]
+          "required": ["upstream", "category", "tags", "language","uac"]
         }
       },
       "required": ["package", "setup_flow", "software"]
